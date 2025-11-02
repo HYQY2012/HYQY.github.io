@@ -3,346 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>何逸钦远的第一个网站</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <!-- 统一的 Tailwind 配置 -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#3B82F6', // 蓝色
-                        secondary: '#F97316', // 橙色
-                        dark: '#1E293B',
-                        light: '#F8FAFC'
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                    },
-                    animation: {
-                        'float': 'float 3s ease-in-out infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer utilities {
-            .text-shadow {
-                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            }
-            .text-shadow-lg {
-                text-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            }
-            .bg-gradient-primary {
-                background: linear-gradient(135deg, theme('colors.primary'), #2563EB);
-            }
-            .bg-gradient-secondary {
-                background: linear-gradient(135deg, theme('colors.secondary'), #EA580C);
-            }
-            .transition-transform {
-                transition-property: transform;
-                transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-                transition-duration: 300ms;
-            }
-            .hover-scale:hover {
-                transform: scale(1.05);
-            }
-        }
-
-        /* 自定义样式 */
+    <title>何逸钦远视频播放器</title>
+    <style>
         body {
-            overflow-x: hidden;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-
-        .hero-section {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/6a2859251d0c4ba98612542766f761df~tplv-a9rns2rl98-image.image?rcl=20251102133820B651C65AA901B31B5561&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1764653915&x-signature=ezdACl2lvifZVWtm%2BdxiGMrMloA%3D');
-            background-size: cover;
-            background-position: center;
-            z-index: -1;
-            filter: brightness(0.8);
-        }
-
-        .animated-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.8;
-        }
-
-        .shape {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            transition: all 0.5s ease;
-        }
-
-        .avatar-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: 50%;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        .avatar-container::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            background: linear-gradient(45deg, theme('colors.primary'), theme('colors.secondary')) border-box;
-            -webkit-mask: 
-                linear-gradient(#fff 0 0) padding-box, 
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: destination-out;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .avatar-container:hover::after {
-            opacity: 1;
-        }
-
-        .card {
-            transition: all 0.3s ease;
-            border-radius: 0.75rem;
-            overflow: hidden;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        .btn-primary {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            z-index: 1;
-        }
-
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: all 0.6s ease;
-            z-index: -1;
-        }
-
-        .btn-primary:hover::before {
-            left: 100%;
-        }
-
-        .btn-secondary {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            z-index: 1;
-        }
-
-        .btn-secondary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: all 0.6s ease;
-            z-index: -1;
-        }
-
-        .btn-secondary:hover::before {
-            left: 100%;
-        }
-
-        .message-form input,
-        .message-form textarea {
-            transition: all 0.3s ease;
-            border: 2px solid #E2E8F0;
-        }
-
-        .message-form input:focus,
-        .message-form textarea:focus {
-            border-color: theme('colors.primary');
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-        }
-
-        .message-list {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        .message-item {
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 视频播放区域样式 */
         .video-container {
-            position: relative;
-            width: 100%;
-            border-radius: 1rem;
+            width: 90%;
+            max-width: 1200px;
+            background-color: #000;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
         }
-
         video {
             width: 100%;
             height: auto;
-            display: block;
         }
-
-        /* 响应式调整 */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            .video-container {
-                border-radius: 0.5rem;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .hero-title {
-                font-size: 2rem;
-            }
+        .info {
+            margin-top: 20px;
+            color: #333;
+            font-family: Arial, sans-serif;
         }
     </style>
 </head>
-<body class="bg-light text-dark">
-    <!-- 导航栏 -->
-    <nav class="fixed top-0 left-0 w-full bg-white bg-opacity-90 backdrop-blur-sm shadow-sm z-50 transition-all duration-300">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="#" class="text-xl font-bold text-primary flex items-center">
-                <span class="mr-2"><i class="fa fa-code"></i></span>
-                <span>何逸钦远</span>
-            </a>
-            <div class="hidden md:flex space-x-8">
-                <a href="#about" class="text-gray-600 hover:text-primary transition-colors">关于我</a>
-                <a href="#projects" class="text-gray-600 hover:text-primary transition-colors">项目</a>
-                <a href="#video" class="text-gray-600 hover:text-primary transition-colors">视频播放</a>
-                <a href="#contact" class="text-gray-600 hover:text-primary transition-colors">留言</a>
-            </div>
-            <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none">
-                <i class="fa fa-bars text-xl"></i>
-            </button>
-        </div>
-        <!-- 移动端菜单 -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-md">
-            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
-                <a href="#about" class="text-gray-600 hover:text-primary transition-colors py-2">关于我</a>
-                <a href="#projects" class="text-gray-600 hover:text-primary transition-colors py-2">项目</a>
-                <a href="#video" class="text-gray-600 hover:text-primary transition-colors py-2">视频播放</a>
-                <a href="#contact" class="text-gray-600 hover:text-primary transition-colors py-2">留言</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- 英雄区域 -->
-    <section class="hero-section min-h-screen flex items-center justify-center pt-16 relative">
-        <div class="hero-bg"></div>
-        <div class="animated-bg" id="animated-bg"></div>
-        <div class="container mx-auto px-4 py-16 text-center relative z-10">
-            <h1 class="hero-title text-5xl md:text-6xl font-bold text-white mb-6 text-shadow-lg animate-float">
-                难以置信，<br>这是何逸钦远的第一个网站
-            </h1>
-            <p class="text-xl md:text-2xl text-white text-shadow mb-8 max-w-3xl mx-auto">
-                欢迎来到我的数字世界，这里记录着我的学习历程和创意探索
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#about" class="btn-primary bg-gradient-primary text-white font-medium py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all">
-                    了解更多
-                </a>
-                <a href="#video" class="btn-secondary bg-gradient-secondary text-white font-medium py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all">
-                    观看视频
-                </a>
-            </div>
-        </div>
-        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
-            <a href="#about" class="flex flex-col items-center">
-                <span class="mb-2">向下滚动</span>
-                <i class="fa fa-chevron-down"></i>
-            </a>
-        </div>
-    </section>
-
-    <!-- 关于我区域 -->
-    <section id="about" class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4">关于我</h2>
-                <div class="w-24 h-1 bg-primary mx-auto"></div>
-            </div>
-            <div class="flex flex-col md:flex-row items-center gap-12">
-                <div class="avatar-container w-64 h-64 mx-auto md:mx-0">
-                    <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/faad99e10a7347e7b527fc96e1d5d1bc~tplv-a9rns2rl98-image.image?rcl=20251102133820B651C65AA901B31B5561&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1764653924&x-signature=G40beBsN%2BXNvppLe76oZqJUKqpM%3D" 
-                         alt="何逸钦远的头像" 
-                         class="w-full h-full object-cover">
-                </div>
-                <div class="flex-1 max-w-2xl">
-                    <h3 class="text-2xl font-bold mb-4">你好，我是何逸钦远</h3>
-                    <p class="text-gray-700 mb-6 text-lg">
-                        我是一名充满好奇心和创造力的学习者，热爱探索新技术和设计。这个网站是我学习前端开发过程中的第一个作品，记录了我的成长和进步。
-                    </p>
-                    <p class="text-gray-700 mb-8 text-lg">
-                        我对编程、设计和数字艺术充满热情，喜欢将创意转化为实际项目。通过不断学习和实践，我正在努力提升自己的技能，探索更多可能性。
-                    </p>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="bg-gray-50 p-4 rounded-lg text-center hover-scale transition-transform">
-                            <i class="fa fa-code text-primary text-2xl mb-2"></i>
-                            <h4 class="font-medium">编程</h4>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg text-center hover-scale transition-transform">
-                            <i class="fa fa-paint-brush text-primary text-2xl mb-2"></i>
-                            <h4 class="font-medium">设计</h4>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg text-center hover-scale transition-transform">
-                            <i class="fa fa-lightbulb-o text-primary text-2xl mb-2"></i>
-                            <h4 class="font-medium">创意</h4>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg text-center hover-scale transition-transform">
-                            <i class="fa fa-book text-primary text-2xl mb-2"></i>
-                            <h4 class="font-medium">学习</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<body>
+    <div class="video-container">
+        <video controls>
+            <!-- 请确保1.mp4与该HTML文件在同一文件夹内 -->
+            <source src="1.mp4" type="video/mp4">
+            您的浏览器不支持HTML5视频播放。
+        </video>
+    </div>
+    <div class="info">
+        <p>提示：请将1.mp4视频文件与本HTML文件放在同一文件夹中，然后用浏览器打开本文件即可播放。</p>
+        <p>注意：请确保您拥有该视频的合法版权或播放权限。</p>
+    </div>
+</body>
+</html>
